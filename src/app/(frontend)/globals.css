@@ -1,0 +1,147 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@config '../../../tailwind.config.mjs';
+
+@custom-variant sm (@media (width >= theme(--breakpoint-sm)));
+@custom-variant md (@media (width >= theme(--breakpoint-md)));
+@custom-variant lg (@media (width >= theme(--breakpoint-lg)));
+@custom-variant xl (@media (width >= theme(--breakpoint-xl)));
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+
+  --color-cream: #F4EFE6;
+  --color-ink: #141210;
+  --color-accent: #E5402A;
+  --color-accent-dark: #C4321F;
+  --color-muted: #A89F91;
+  --color-rule: #D4CBC0;
+  --color-cream-dark: #E8E0D4;
+
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem); }
+  h3 { font-size: clamp(1.3rem, 3vw, 2rem); }
+  h4 { font-size: clamp(1.1rem, 2vw, 1.5rem); }
+  a {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-accent);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  a:hover {
+    color: var(--color-accent);
+  }
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-cream);
+  }
+}
+
+@layer utilities {
+  .container {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @variant md {
+    .container { padding-inline: 2rem; }
+  }
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .font-mono { font-family: var(--font-mono); }
+  .text-cream { color: var(--color-cream); }
+  .text-ink { color: var(--color-ink); }
+  .text-accent { color: var(--color-accent); }
+  .text-muted { color: var(--color-muted); }
+  .bg-cream { background-color: var(--color-cream); }
+  .bg-ink { background-color: var(--color-ink); }
+  .bg-accent { background-color: var(--color-accent); }
+  .bg-cream-dark { background-color: var(--color-cream-dark); }
+  .border-rule { border-color: var(--color-rule); }
+
+  .motif::before {
+    content: '⚗';
+    margin-right: 0.5em;
+    color: var(--color-accent);
+  }
+
+  .rule {
+    border: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .rule-thick {
+    border: none;
+    border-top: 3px solid var(--color-ink);
+  }
+
+  .print-texture {
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1.5rem,
+        var(--color-rule) 1.5rem,
+        var(--color-rule) calc(1.5rem + 1px)
+      );
+  }
+
+  .halftone {
+    background-image: radial-gradient(circle, var(--color-rule) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+
+  .registration-mark::before {
+    content: '⊕';
+    font-size: 0.75rem;
+    color: var(--color-muted);
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
